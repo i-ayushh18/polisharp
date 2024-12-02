@@ -23,7 +23,6 @@
 					queryParams += `&?api_key=${apiKey}`
 				}
 				response = await fetch(`http://127.0.0.1:8000/url${queryParams}`);
-				console.log(response)
 			} else {
 				let formData = new FormData();
 				formData.append('file', value);
@@ -37,7 +36,6 @@
 				)
 			}
 			responseJson = await response.json();
-			console.log(JSON.stringify(responseJson))
 		} catch (err) {
 			console.log(err)
 		}
@@ -88,7 +86,7 @@
 							<div class="px-4 py-2 font-bold border bg-[#141416]">Retention Period</div>
 							<div class="px-4 py-2 font-bold border bg-[#141416]">Criticality</div>
 					</div>
-					{#each responseJson.response.dataPolicyPoints as policy, index}
+					{#each responseJson.response.dataPolicyPoints as policy}
 							<div class="grid grid-cols-[minmax(300px,_3fr)_minmax(250px,_2fr)_minmax(150px,_1fr)_minmax(150px,_1fr)]">
 									<div class="px-4 py-2 border">{policy.dataCollected}</div>
 									<div class="px-4 py-2 border">{policy.purpose}</div>

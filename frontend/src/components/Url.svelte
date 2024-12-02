@@ -1,9 +1,7 @@
 <script>
-	import { error } from '@sveltejs/kit';
 	import { createEventDispatcher } from 'svelte';
-  const dispatch = createEventDispatcher();
+	const dispatch = createEventDispatcher();
 
-	let urlEnabled = $props();
 	let url = $state('');
 </script>
 
