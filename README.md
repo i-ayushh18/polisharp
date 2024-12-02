@@ -43,3 +43,6 @@ cd frontend
 npm run dev
 ```
 Access the app in your browser at http://localhost:5173.
+
+## 📜 License
+This project is licensed under the [MIT License](./LICENSE).
