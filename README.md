@@ -23,9 +23,16 @@ cd polisharp
 ```
 cd backend
 python3 -m venv venv
-source venv/bin/activate
+source venv/bin/activate # for bash
+# OR
+venv/scripts/activate # for powershell
 pip install -r requirements.txt
 ```
+- Setup Gemini API Key (Critical: One must be satisfied)
+    - Create a new file with the name `.env` in backend dir.
+    - Paste the following `GEMINI_API_KEY=<your_api_key>`.
+OR
+    - Put the api key in the Gemini API Key field.
 - Set up the frontend:
 ```bash
 cd ../frontend

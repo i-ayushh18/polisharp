@@ -6,7 +6,11 @@
 	const dispatch = createEventDispatcher();
 	
 	let response = $state('');
-	let apiKey = $state('');
+	export const snapshot = {
+		capture: () => apiKey,
+		restore: (value) => apiKey = value
+	}
+	let apiKey = $state('')
 	let { responseJson = '' } = $props();
 	let requestInProgress = $state(false);
 
@@ -20,7 +24,7 @@
 			if (type == "URL") {
 				let queryParams = `?url=${value}`
 				if (apiKey != '') {
-					queryParams += `&?api_key=${apiKey}`
+					queryParams += `&api_key=${apiKey}`
 				}
 				response = await fetch(`http://127.0.0.1:8000/url${queryParams}`);
 			} else {
@@ -37,7 +41,7 @@
 			}
 			responseJson = await response.json();
 		} catch (err) {
-			console.log(err)
+			responseJson = {status: "error", detail: err}
 		}
 		requestInProgress = false;
 		dispatch('setOverlay', false);
@@ -68,7 +72,7 @@
 					<input
 						type="text"
 						bind:value={apiKey}
-						placeholder="Gemini API KEY (Optional)"
+						placeholder="Gemini API KEY"
 						class="w-64 sm:w-96 px-4 py-2 text-sm bg-neutral-800 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
 				</div>
 			</div>
@@ -77,17 +81,17 @@
 		<div class="w-full h-full p-4 grid grid-flow-row gap-4 place-items-center">
 			{#if responseJson.status == "success"}
 				<div class="font-semibold text-xl p-4">
-					Analyze {responseJson.companyName}'s Privacy Policy
+					Analyze {responseJson.response.companyName != '' ? responseJson.response.companyName: ''} Privacy Policy
 				</div>
 				<div class="overflow-auto w-full h-96 border border-gray-300 flex flex-col">
-					<div class="grid grid-cols-[minmax(300px,_3fr)_minmax(250px,_2fr)_minmax(150px,_1fr)_minmax(150px,_1fr)]">
+					<div class="grid grid-cols-[minmax(300px,_3fr)_minmax(250px,_2fr)_minmax(250px,_2fr)_minmax(150px,_1fr)] sticky z-10">
 							<div class="px-4 py-2 font-bold border bg-[#141416]">Data Collected</div>
 							<div class="px-4 py-2 font-bold border bg-[#141416]">Purpose</div>
 							<div class="px-4 py-2 font-bold border bg-[#141416]">Retention Period</div>
 							<div class="px-4 py-2 font-bold border bg-[#141416]">Criticality</div>
 					</div>
 					{#each responseJson.response.dataPolicyPoints as policy}
-							<div class="grid grid-cols-[minmax(300px,_3fr)_minmax(250px,_2fr)_minmax(150px,_1fr)_minmax(150px,_1fr)]">
+							<div class="grid grid-cols-[minmax(300px,_3fr)_minmax(250px,_2fr)_minmax(250px,_2fr)_minmax(150px,_1fr)]">
 									<div class="px-4 py-2 border">{policy.dataCollected}</div>
 									<div class="px-4 py-2 border">{policy.purpose}</div>
 									<div class="px-4 py-2 border">{policy.retentionPeriod}</div>
