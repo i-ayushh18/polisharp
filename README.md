@@ -39,12 +39,13 @@ cd ../frontend
 npm install
 ```
 ## 🚀 Usage
-- Start the backend (available at `https://localhost:8000`):
+- Open **TWO** terminal sessions and change directory to `polisharp`.
+- **Session 1**: Start the backend (available at `https://localhost:8000`):
 ```bash
 cd backend
 uvicorn main:app
 ```
-- Start the frontend:
+- **Session 2**: Start the frontend:
 ```bash
 cd frontend
 npm run dev
