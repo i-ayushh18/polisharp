@@ -1,6 +1,5 @@
-# Polisharp
-
-PoliSharp is an AI-powered tool that simplifies complex privacy policies. By providing a URL or uploading a PDF of a privacy policy, users receive a concise, tabular summary, enabling them to understand critical information quickly and easily.
+![img](./assets/Thumbnail.png)
+An AI-powered tool that simplifies complex privacy policies. By providing a URL or uploading a PDF of a privacy policy, users receive a concise, tabular summary, enabling them to understand critical information quickly and easily.
 
 ## 🚀 Features
 - **URL & PDF Input**: Accepts privacy policies via URL or file upload.
