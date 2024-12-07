@@ -50,7 +50,7 @@ app.add_middleware(
 
 FILE_PATH="policies.pdf"
 
-@app.get("/url/")
+@app.get("/url")
 def process_from_url(url: str, api_key: Optional[str] = None):
     try:
         logger.debug(f"URL specified as: {url}")
@@ -60,17 +60,18 @@ def process_from_url(url: str, api_key: Optional[str] = None):
         return {"status": "error", "detail": e.detail}
     
 
-@app.post("/file/")
+@app.post("/file")
 async def process_from_file(file: UploadFile = File(...), api_key: Optional[str] = Form(...)):
     try:
         with open(FILE_PATH, "wb") as pdf:
             content = await file.read()
             pdf.write(content)
-            return process(api_key)
+            logger.debug("PDF download successful")
+        return process(api_key)
     except HTTPException as e:
         return {"status": "error", "detail": e.detail}
-    except Exception:
-        return {"status": "error", "detail": "File upload failed !! Please try again"}
+    except Exception as e:
+        return {f"status": "error", "detail": e}
 
 def process(api_key: Optional[str] = None) -> str:
     try:

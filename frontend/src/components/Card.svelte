@@ -54,7 +54,7 @@
 		<div class="w-full h-full grid grid-rows-[2fr_4fr] sm:grid-rows-[3fr_5fr] p-4 gap-4 place-items-center">
 			<div class="grid gap-4 font-display">
 				<div class="font-bold lg:font-extrabold text-lg sm:text-xl md:text-3xl lg:text-5xl text-center font-cursive">
-					Simplify <span class="font-display text-[#141416] stroked">POLICIES</span>, Amplify <span class="font-display text-[#141416] stroked">UNDERSTADING</span>
+					Simplify <span class="font-display text-[#141416] stroked">POLICIES</span>, Amplify <span class="font-display text-[#141416] stroked">UNDERSTANDING</span>
 				</div>
 				<div class="px-10 sm:px-16 text-base lg:text-lg font-light text-center">
 					Harness the Power of AI to decode Privacy Policies, eliminating the tedious task of reading lengthy and complex PDFs
