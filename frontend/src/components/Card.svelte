@@ -3,6 +3,9 @@
 	import File from "./File.svelte";
 	import Url from "./Url.svelte";
 
+	
+	const apiBase = import.meta.env.VITE_API_BASE_URL;
+
 	const dispatch = createEventDispatcher();
 	
 	let response = $state('');
@@ -15,39 +18,39 @@
 	let requestInProgress = $state(false);
 
 	async function fetchFromAPI(type, value) {
-	if (requestInProgress) {
-		return;
-	}
-	try {
-		requestInProgress = true;
-		dispatch('setOverlay', true);
-
-		if (type == "URL") {
-			let queryParams = `?url=${encodeURIComponent(value)}`;
-			if (apiKey != '') {
-				queryParams += `&api_key=${apiKey}`;
-			}
-			response = await fetch(`${apiBase}/url${queryParams}`);
-		} else {
-			let formData = new FormData();
-			formData.append('file', value);
-			formData.append('api_key', apiKey);
-			response = await fetch(`${apiBase}/file`, {
-				method: 'POST',
-				body: formData
-			});
+		if (requestInProgress) {
+			return;
 		}
+		try {
+			requestInProgress = true;
+			dispatch('setOverlay', true);
 
-		responseJson = await response.json();
-	} catch (err) {
-		responseJson = { status: "error", detail: err.message || "Unknown error" };
-	} finally {
-		requestInProgress = false;
-		dispatch('setOverlay', false);
+			if (type == "URL") {
+				let queryParams = `?url=${encodeURIComponent(value)}`;
+				if (apiKey != '') {
+					queryParams += `&api_key=${apiKey}`;
+				}
+				response = await fetch(`${apiBase}/url${queryParams}`);
+			} else {
+				let formData = new FormData();
+				formData.append('file', value);
+				formData.append('api_key', apiKey);
+				response = await fetch(`${apiBase}/file`, {
+					method: 'POST',
+					body: formData
+				});
+			}
+
+			responseJson = await response.json();
+		} catch (err) {
+			responseJson = { status: "error", detail: err.message || "Unknown error" };
+		} finally {
+			requestInProgress = false;
+			dispatch('setOverlay', false);
+		}
 	}
-}
-
 </script>
+
 
 <div class="w-4/5 h-4/5 bg-[#141416] border rounded-md text-gray-200">
 	{#if responseJson == ''}
