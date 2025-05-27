@@ -45,7 +45,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://polisharp-frontend.onrender.com"],  # ✅ Update this with your frontend Render URL
+    allow_origins=["https://polisharp-1.onrender.com"], 
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"]
