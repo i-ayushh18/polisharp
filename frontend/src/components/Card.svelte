@@ -15,37 +15,37 @@
 	let requestInProgress = $state(false);
 
 	async function fetchFromAPI(type, value) {
-		if (requestInProgress) {
-			return
-		}
-		try {
-			requestInProgress = true
-			dispatch('setOverlay', true)
-			if (type == "URL") {
-				let queryParams = `?url=${value}`
-				if (apiKey != '') {
-					queryParams += `&api_key=${apiKey}`
-				}
-				response = await fetch(`http://127.0.0.1:8000/url${queryParams}`);
-			} else {
-				let formData = new FormData();
-				formData.append('file', value);
-				formData.append('api_key', apiKey)
-				response = await fetch(
-					'http://127.0.0.1:8000/file',
-					{
-						method: 'POST',
-						body: formData
-					}
-				)
+	if (requestInProgress) {
+		return;
+	}
+	try {
+		requestInProgress = true;
+		dispatch('setOverlay', true);
+
+		if (type == "URL") {
+			let queryParams = `?url=${encodeURIComponent(value)}`;
+			if (apiKey != '') {
+				queryParams += `&api_key=${apiKey}`;
 			}
-			responseJson = await response.json();
-		} catch (err) {
-			responseJson = {status: "error", detail: err}
+			response = await fetch(`${apiBase}/url${queryParams}`);
+		} else {
+			let formData = new FormData();
+			formData.append('file', value);
+			formData.append('api_key', apiKey);
+			response = await fetch(`${apiBase}/file`, {
+				method: 'POST',
+				body: formData
+			});
 		}
+
+		responseJson = await response.json();
+	} catch (err) {
+		responseJson = { status: "error", detail: err.message || "Unknown error" };
+	} finally {
 		requestInProgress = false;
 		dispatch('setOverlay', false);
 	}
+}
 
 </script>
 
